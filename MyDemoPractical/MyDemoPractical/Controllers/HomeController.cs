@@ -12,11 +12,11 @@ namespace MyDemoPractical.Controllers
     {
         public ActionResult Index()
         {
-            EmployeeDetails objEmployeeDetails = new EmployeeDetails();/*rahul*/
+            EmployeeDetails objEmployeeDetails = new EmployeeDetails();/*amit*/
 
             if(true)
             {
-                string str = "hello";
+                string str = "hello world";
                 ViewBag.Greetings = str;
             }
             List<Employee> lstEmployee = new List<Employee>();
