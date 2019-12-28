@@ -12,7 +12,7 @@ namespace MyDemoPractical.Controllers
     {
         public ActionResult Index()
         {
-            EmployeeDetails objEmployeeDetails = new EmployeeDetails();
+            EmployeeDetails objEmployeeDetails = new EmployeeDetails();/*baibhav*/
             List<Employee> lstEmployee = new List<Employee>();
             List<Department> lstDepartment = new List<Department>();
             Department objDepartment = null;
