@@ -16,7 +16,7 @@ namespace MyDemoPractical.Controllers
 
             if(true)
             {
-                string str = "hello world";
+                string str = "hello ji";
                 ViewBag.Greetings = str;
             }
             List<Employee> lstEmployee = new List<Employee>();
