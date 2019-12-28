@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ORGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Dept">
+    <Key>
+      <PropertyRef Name="DeptId" />
+    </Key>
+    <Property Name="DeptId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Emps" Relationship="ORGModel.FK_Emp_Dept" FromRole="Dept" ToRole="Emp" />
+  </EntityType>
+  <EntityType Name="Emp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DeptId" Type="Int32" />
+    <NavigationProperty Name="Dept" Relationship="ORGModel.FK_Emp_Dept" FromRole="Emp" ToRole="Dept" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="WORKER_ID" />
+    </Key>
+    <Property Name="WORKER_ID" Type="Int32" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LAST_NAME" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+    <Property Name="SALARY" Type="Int32" />
+    <Property Name="JOINING_DATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DEPARTMENT" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="workernew">
+    <Key>
+      <PropertyRef Name="WORKER_ID" />
+    </Key>
+    <Property Name="WORKER_ID" Type="Int32" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="LAST_NAME" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+    <Property Name="SALARY" Type="Int32" />
+    <Property Name="JOINING_DATE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DEPARTMENT" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="ORGEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Depts" EntityType="Self.Dept" />
+    <EntitySet Name="Emps" EntityType="Self.Emp" />
+    <EntitySet Name="Workers" EntityType="Self.Worker" />
+    <EntitySet Name="workernews" EntityType="Self.workernew" />
+    <AssociationSet Name="FK_Emp_Dept" Association="ORGModel.FK_Emp_Dept">
+      <End Role="Dept" EntitySet="Depts" />
+      <End Role="Emp" EntitySet="Emps" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Emp_Dept">
+    <End Type="ORGModel.Dept" Role="Dept" Multiplicity="0..1" />
+    <End Type="ORGModel.Emp" Role="Emp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dept">
+        <PropertyRef Name="DeptId" />
+      </Principal>
+      <Dependent Role="Emp">
+        <PropertyRef Name="DeptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

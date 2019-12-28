@@ -1,0 +1,25 @@
+﻿@model MyDemoPractical.Models.EmployeeDetails
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Emp ID</th>
+                <th>Emp Name</th>
+                <th>Dept Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.EmployeeData)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.DeptName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

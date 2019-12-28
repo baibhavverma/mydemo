@@ -1,0 +1,50 @@
+﻿@model MyDemoPractical.Models.EmployeeDetails
+
+@{
+    ViewBag.Title = "Home Page";
+}
+@if (Model != null)
+{
+    <div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+        @foreach (var item in Model.DepartmentData)
+        {
+            <div>
+                @Html.CheckBoxFor(model => item.IsSelect, new {@id="deptid" })
+                @item.DeptName
+                <br />
+            </div>
+        }
+        @Html.DropDownListFor(model => model.DepartmentData,
+                                   new SelectList(Model.DepartmentData.Select(s => s.DeptName)),
+                                   "Select Department")
+    </div>
+
+    @Html.Partial("_Home", Model)
+}
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#deptid").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Home/Index",
+                data: $(this).text(),
+                success: function (response) {
+                    alert('sucess');
+
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });  
+        });
+
+    });
+</script>

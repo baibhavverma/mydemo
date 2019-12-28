@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ORGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Dept">
+    <Key>
+      <PropertyRef Name="DeptId" />
+    </Key>
+    <Property Name="DeptId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeptName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Emp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="DeptId" Type="int" />
+  </EntityType>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="WORKER_ID" />
+    </Key>
+    <Property Name="WORKER_ID" Type="int" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="varchar" MaxLength="25" />
+    <Property Name="LAST_NAME" Type="char" MaxLength="25" />
+    <Property Name="SALARY" Type="int" />
+    <Property Name="JOINING_DATE" Type="varchar" MaxLength="100" />
+    <Property Name="DEPARTMENT" Type="char" MaxLength="25" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ORG.dbo.workernew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="workernew">
+    <Key>
+      <PropertyRef Name="WORKER_ID" />
+    </Key>
+    <Property Name="WORKER_ID" Type="int" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="varchar" MaxLength="25" />
+    <Property Name="LAST_NAME" Type="char" MaxLength="25" />
+    <Property Name="SALARY" Type="int" />
+    <Property Name="JOINING_DATE" Type="varchar" MaxLength="100" />
+    <Property Name="DEPARTMENT" Type="char" MaxLength="25" />
+  </EntityType>
+  <Association Name="FK_Emp_Dept">
+    <End Role="Dept" Type="Self.Dept" Multiplicity="0..1" />
+    <End Role="Emp" Type="Self.Emp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dept">
+        <PropertyRef Name="DeptId" />
+      </Principal>
+      <Dependent Role="Emp">
+        <PropertyRef Name="DeptId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ORGModelStoreContainer">
+    <EntitySet Name="Dept" EntityType="Self.Dept" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Emp" EntityType="Self.Emp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="workernew" EntityType="Self.workernew" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [workernew].[WORKER_ID] AS [WORKER_ID], 
+    [workernew].[FIRST_NAME] AS [FIRST_NAME], 
+    [workernew].[LAST_NAME] AS [LAST_NAME], 
+    [workernew].[SALARY] AS [SALARY], 
+    [workernew].[JOINING_DATE] AS [JOINING_DATE], 
+    [workernew].[DEPARTMENT] AS [DEPARTMENT]
+    FROM [dbo].[workernew] AS [workernew]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Emp_Dept" Association="Self.FK_Emp_Dept">
+      <End Role="Dept" EntitySet="Dept" />
+      <End Role="Emp" EntitySet="Emp" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
